@@ -1,0 +1,281 @@
+:root {
+  --bg: #0f172a;
+  --bg-card: #1e293b;
+  --bg-soft: #334155;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border: #334155;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+}
+
+/* Ekran yönetimi */
+.screen { display: none; height: 100vh; height: 100dvh; }
+.screen.active { display: flex; flex-direction: column; }
+
+/* ========== BAĞLANTI EKRANI ========== */
+#connect-screen, #scan-screen {
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 28px;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,.4);
+}
+
+.card h1 { font-size: 1.6rem; margin-bottom: 8px; }
+.subtitle { color: var(--text-muted); margin-bottom: 20px; font-size: .95rem; }
+
+/* QR Kod */
+.qr-box {
+  background: #fff;
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  display: inline-block;
+  margin-bottom: 16px;
+  min-width: 260px;
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#qr-loading { color: #64748b; font-size: .9rem; }
+#qrcode img, #qrcode canvas { display: block; }
+
+.peer-id-line {
+  font-size: .85rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  word-break: break-all;
+}
+.peer-id-line code {
+  background: var(--bg-soft);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--text);
+  font-size: .8rem;
+}
+
+.status { color: var(--text-muted); font-size: .9rem; margin-top: 8px; }
+.status.error { color: var(--danger); }
+.status.ok { color: var(--success); }
+
+/* ========== SOHBET EKRANI ========== */
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--success);
+  display: inline-block;
+}
+.peer-label { color: var(--text-muted); font-size: .85rem; flex: 1; }
+
+/* Mesaj alanı */
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.msg {
+  max-width: 75%;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  font-size: .95rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+  animation: fadeIn .2s ease;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px);} to { opacity: 1; transform: none; } }
+
+.msg.mine {
+  align-self: flex-end;
+  background: var(--primary);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.msg.theirs {
+  align-self: flex-start;
+  background: var(--bg-soft);
+  color: var(--text);
+  border-bottom-left-radius: 4px;
+}
+.msg.system {
+  align-self: center;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: .8rem;
+  font-style: italic;
+  padding: 4px;
+}
+
+.msg .time {
+  display: block;
+  font-size: .7rem;
+  opacity: .7;
+  margin-top: 4px;
+}
+
+/* Dosya mesajı */
+.msg.file-msg { padding: 10px; }
+.msg.file-msg img,
+.msg.file-msg video {
+  max-width: 100%;
+  border-radius: var(--radius-sm);
+  display: block;
+  margin-bottom: 6px;
+}
+.msg.file-msg .file-name {
+  font-size: .85rem;
+  font-weight: 600;
+  word-break: break-all;
+}
+.msg.file-msg .file-size { font-size: .75rem; opacity: .8; }
+.msg.file-msg .download-link {
+  display: inline-block;
+  margin-top: 6px;
+  color: #fff;
+  background: rgba(255,255,255,.2);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-size: .8rem;
+}
+.msg.theirs .download-link { background: var(--primary); }
+
+/* ========== İLERLEME ÇUBUĞU ========== */
+.progress-area {
+  padding: 10px 16px;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.progress-area.hidden { display: none; }
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: .8rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.progress-track {
+  height: 8px;
+  background: var(--bg-soft);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--primary), var(--success));
+  transition: width .15s ease;
+}
+
+/* ========== MESAJ YAZMA ========== */
+.composer {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.composer textarea {
+  flex: 1;
+  background: var(--bg-soft);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  color: var(--text);
+  font-size: .95rem;
+  resize: none;
+  max-height: 120px;
+  font-family: inherit;
+}
+.composer textarea:focus { outline: 2px solid var(--primary); }
+
+.file-btn {
+  cursor: pointer;
+  font-size: 1.4rem;
+  padding: 6px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-soft);
+  user-select: none;
+}
+.file-btn:hover { background: var(--border); }
+
+.send-btn {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  font-size: .95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.send-btn:hover { background: var(--primary-dark); }
+
+.danger-btn {
+  background: var(--danger);
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: .8rem;
+  cursor: pointer;
+}
+.danger-btn:hover { background: #dc2626; }
+
+.mini-btn {
+  background: var(--bg-soft);
+  color: var(--text);
+  border: none;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: .8rem;
+  cursor: pointer;
+  margin-top: 8px;
+}
+.mini-btn:hover { background: var(--border); }
+
+.hidden { display: none !important; }
+
+/* Scrollbar */
+.messages::-webkit-scrollbar { width: 8px; }
+.messages::-webkit-scrollbar-thumb { background: var(--bg-soft); border-radius: 4px; }

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>P2P Transfer — Mobil Arayüzü</title>
+  <meta name="theme-color" content="#2563eb" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icons/favicon.ico" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/mobile.css" />
+</head>
+<body data-role="mobile">
+
+  <!-- ================= TARAMA EKRANI ================= -->
+  <section id="scan-screen" class="screen active">
+    <div class="card">
+      <h1>📷 QR Kodu Tara</h1>
+      <p class="subtitle">Bilgisayar ekranındaki QR kodu kameraya gösterin</p>
+
+      <div id="reader" class="reader-box"></div>
+
+      <p class="status" id="scan-status">Kamera başlatılıyor…</p>
+
+      <button id="manual-toggle" class="mini-btn">Kimliği elle gir</button>
+      <div id="manual-box" class="manual-box hidden">
+        <input type="text" id="manual-id" placeholder="Bağlantı kimliği (örn: abc123…)" />
+        <button id="manual-connect" class="send-btn">Bağlan</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SOHBET / TRANSFER EKRANI ================= -->
+  <section id="chat-screen" class="screen">
+    <header class="chat-header">
+      <span class="dot connected"></span>
+      <strong>Bağlandı</strong>
+      <button id="disconnect-btn" class="danger-btn">Kes</button>
+    </header>
+
+    <main id="messages" class="messages"></main>
+
+    <div id="progress-area" class="progress-area hidden">
+      <div class="progress-label">
+        <span id="progress-name">Dosya</span>
+        <span id="progress-percent">0%</span>
+      </div>
+      <div class="progress-track"><div id="progress-bar" class="progress-bar"></div></div>
+    </div>
+
+    <footer class="composer">
+      <label class="file-btn" title="Dosya gönder">
+        📎
+        <input type="file" id="file-input" hidden />
+      </label>
+      <textarea id="message-input" rows="1" placeholder="Mesaj yazın…"></textarea>
+      <button id="send-btn" class="send-btn">Gönder</button>
+    </footer>
+  </section>
+
+  <!-- Kütüphaneler -->
+  <script src="lib/peerjs.min.js"></script>
+  <script src="lib/html5-qrcode.min.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/mobile.js"></script>
+<script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then((reg) => console.log('[PWA] SW kayıtlı:', reg.scope))
+          .catch((err) => console.warn('[PWA] SW kayıt hatası:', err));
+      });
+    }
+    </script>
+</body>
+</html>

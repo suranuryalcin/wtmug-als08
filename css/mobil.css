@@ -1,0 +1,36 @@
+/* Mobil arayüzüne özel */
+.reader-box {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto 16px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: #000;
+  min-height: 240px;
+}
+.reader-box video { width: 100% !important; height: auto !important; }
+
+.manual-box {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.manual-box input {
+  flex: 1;
+  background: var(--bg-soft);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  color: var(--text);
+  font-size: .9rem;
+}
+
+/* Dokunmatik buton boyutları */
+.send-btn, .danger-btn, .mini-btn, .file-btn {
+  min-height: 44px;
+}
+
+/* iOS safe area */
+.composer {
+  padding-bottom: calc(10px + env(safe-area-inset-bottom));
+}

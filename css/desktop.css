@@ -1,0 +1,10 @@
+/* Web arayüzüne özel */
+@media (min-width: 768px) {
+  #chat-screen {
+    max-width: 900px;
+    margin: 0 auto;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+  .msg { max-width: 60%; }
+}
